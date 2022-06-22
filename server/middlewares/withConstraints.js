@@ -64,7 +64,7 @@ const withConstraints = (req, res, next) => {
                         validationError = true;
                     else if (course.incompatibilities && course.incompatibilities.find(inc_c => newCoursesPlan.includes(data.courses.find(course => course.code === inc_c.code))))
                         validationError = true;
-                    else if (req.body.new_course.includes(course.code) && course.max_students && course.max_students < course.registered_students + 1)
+                    else if (req.body.courses.includes(course.code) && course.max_students && course.max_students < course.registered_students + 1)
                         validationError = true;
                     else if (parseInt(credits !== req.body.tot_credits))
                         validationError = true;
