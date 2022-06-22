@@ -390,7 +390,7 @@ Here you can find a visual schema of source directory structure by means the tre
      |    |--- /services (It contains all APIs)
      |    |    |--- /api.js
      |    |    |
-     |    |--- /view (It contains all pages of the application)
+     |    |--- /view (It contains all page of the application)
      |    |    |--- /EditStudyPlan.jsx
      |    |    |--- /ErrorView.jsx
      |    |    |--- /Home.jsx
@@ -410,6 +410,10 @@ Here you can find a visual schema of source directory structure by means the tre
      |--- /package.json
      |--- /README.md
      |
+     |
+|----/img
+|    |--- /screenshot.PNG
+|    |
 |--- /server
      |--- /db
      |    |--- /dbmiddleware.js
