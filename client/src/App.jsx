@@ -14,10 +14,14 @@ import * as View from './views';
 //Services
 import api from './services/api';
 
+//Hooks
+import useNotification from './hooks/useNotification';
+
 const App = () => {
   const [course, setCourse] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
+  const notify = useNotification();
 
   useEffect(() => {
     api.getCourses()
@@ -28,11 +32,10 @@ const App = () => {
         if (err.status === 404)
           setCourse([]);
         else
-          //FIXARE
-          console.log(err.data);
+          notify.error(err.message)
       })
       .finally(() => setLoading(false))
-  }, []);
+  }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading)
     return (

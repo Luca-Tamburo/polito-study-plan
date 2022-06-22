@@ -49,28 +49,36 @@ module.exports = {
         })
     },
 
+
     // This function updates the number of students registered for a course.
     updateRegisteredStudents: (new_course, old_course) => {
-        return new Promise((resolve, reject) => {
-            const queryIncrement = "UPDATE course SET registered_students = registered_students + 1 WHERE code=?"
-            const queryDecrement = "UPDATE course SET registered_students = registered_students - 1 WHERE code=?"
 
-            const statement_decrement = db.prepare(queryDecrement);
-            const statement_increment = db.prepare(queryIncrement);
-
-            old_course.forEach(course => {
-                statement_decrement.run([course], function (err) {
+        // This function increment the number of students registered for a couse.
+        const incrementRegisteredStudent = (course) => {
+            return new Promise((resolve, reject) => {
+                const query = 'UPDATE course SET registered_students = registered_students + 1 WHERE code=?'
+                db.run(query, [course], (err) => {
                     if (err) reject({ message: err.message, status: 500 });
+                    else resolve();
                 })
-            });
+            })
+        }
 
-            new_course.forEach(course => {
-                statement_increment.run([course], function (err) {
+        // This function decrement the number of students registered for a couse.
+        const decrementRegisteredStudent = (course) => {
+            return new Promise((resolve, reject) => {
+                const query = 'UPDATE course SET registered_students = registered_students - 1 WHERE code=?'
+                db.run(query, [course], (err) => {
                     if (err) reject({ message: err.message, status: 500 });
+                    else resolve();
                 })
-            });
+            })
+        }
 
-            resolve({ status: 200 });
-        })
-    },
+        return Promise.all(new_course.map(course => {
+            return incrementRegisteredStudent(course);
+        }).concat(old_course.map(course => {
+            return decrementRegisteredStudent(course);
+        })))
+    }
 }

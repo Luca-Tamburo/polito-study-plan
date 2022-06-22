@@ -1,3 +1,4 @@
+//Imports
 import { Link } from 'react-router-dom';
 import { Row, Button, Image } from 'react-bootstrap';
 

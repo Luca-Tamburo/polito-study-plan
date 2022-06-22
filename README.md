@@ -312,6 +312,7 @@ Delete a study plan associated with the logged in user, given the study plan id.
 ## Database Tables
 
 ### The tables used in this project are:
+#### _course_ includes all course specifications.
 ```
 course (code, name, CFU, max_students, propaedeuticity, registered_students)
     PRIMARY KEY ( code )
@@ -319,18 +320,21 @@ course (code, name, CFU, max_students, propaedeuticity, registered_students)
     FOREIGN KEY( propaedeuticity ) REFERENCES course ( code )
     DEFAULT 0 ( registeredstudents )
 ```
+#### _course list_ includes all course list information associated with a study plan 
 ```
 course_list (id, course_code)
     PRIMARY KEY ( id, coursecode )
     FOREIGN KEY ( coursecode ) REFERENCES course ( code )
 ```
+#### _incompatibility_ includes all information on incompatibilities with other courses.
 ```
-course_list (id, course_code, inc_code)
+incompatibility (id, course_code, inc_code)
     PRIMARY KEY ( id  AUTOINCREMENT )
     UNIQUE ( id )
     FOREIGN KEY ( coursecode ) REFERENCES course ( code )
     FOREIGN KEY ( inc_code ) REFERENCES course ( code )
 ```
+#### _study plan_ includes all study plan specifications.
 ```
 study_plan (id, user_id, course_list_id, type, tot_credits)
     PRIMARY KEY ( id  AUTOINCREMENT )
@@ -340,11 +344,13 @@ study_plan (id, user_id, course_list_id, type, tot_credits)
     FOREIGN KEY ( type ) REFERENCES study_plan_option ( id )
     DEFAULT 0 ( tot_credits )
 ```
+#### _study plan option_ includes all study plan type specifications.
 ```
 study_plan_option (id, name, min_credits, max_credits)
 	PRIMARY KEY  ( id AUTOINCREMENT )
     UNIQUE  ( _d )
 ```
+#### _user_ includes all user specifications.
 ```
 user (id, name, email, password, salt)
     PRIMARY KEY ( id  AUTOINCREMENT )
@@ -410,6 +416,7 @@ Here you can find a visual schema of source directory structure by means the tre
      |    |
      |--- /middlewares
      |    |--- /withAuth.js
+     |----|--- /withConstraints.js
      |    |
      |--- /models
      |    |--- /courseListModel.js
@@ -444,21 +451,19 @@ Here you can find a visual schema of source directory structure by means the tre
 - `LoginForm` (in `LoginForm.js`): Component that manages a user's login.
 - `StudyPlan` (in `LoginForm.js`): Component that allows a study plan to be created if one does not exist associated with a user, otherwise if one exists it allows it to be deleted or modified.
 
-(only _main_ components, minor ones may be skipped)
-
 ## Screenshot
 
-![Screenshot](./img/screenshot.jpg)
+![screenshot](./img/screenshot.PNG)
 
 ## Users Credentials
 
 Here you can find a list of the users already registered inside the provided database. 
 
-| email           | password | name     |
-|:---------------:|:--------:|:--------:|
-| user1@polito.it | password | Luca     |
-| user2@polito.it | password | Enrico   |
-| user3@polito.it | password | Filippo  |
-| user4@polito.it | password | Luigi    |
-| user5@polito.it | password | Antonio  |
+| email           | password | name     |study plan type|
+|:---------------:|:--------:|:--------:|:-------------:|
+| user1@polito.it | password | Luca     |PART-TIME      |
+| user2@polito.it | password | Enrico   |FULL-TIME      |
+| user3@polito.it | password | Filippo  |PART-TIME      |
+| user4@polito.it | password | Luigi    |PART-TIME      |
+| user5@polito.it | password | Antonio  |               |
 

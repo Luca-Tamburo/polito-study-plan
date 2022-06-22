@@ -8,7 +8,7 @@ const Course = (props) => {
         return (
             <div className='d-flex justify-content-center mt-4'>
                 <Alert className="color-alert fw-bold p-3 my-2 rounded-3 px-5" variant='warning' >
-                    Non sono presenti corsi nel piano di studio.
+                    Non sono presenti corsi.
                 </Alert>
             </div>
         )

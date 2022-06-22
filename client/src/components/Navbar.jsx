@@ -54,9 +54,11 @@ const Navbar = ({ setCourse }) => {
                         <span className='fw-bold fst-italic'>Study Plan</span>
                     </MyNavbar.Brand>
                     <div>
-                        {session.loggedIn ? <Button size='xl' className='ms-4 px-3 text-white fw-semibold' onClick={handleLogout}>
-                            <FontAwesomeIcon icon={faDoorOpen} className='me-3' size='xl' />Logout
-                        </Button> :
+                        {session.loggedIn ?
+                            <div className='d-flex'><h5 className='mt-2'>Hi, {session.user.name}!</h5><Button size='xl' className='ms-4 px-3 text-white fw-semibold' onClick={handleLogout}>
+                                <FontAwesomeIcon icon={faDoorOpen} className='me-3' size='xl' />Logout
+                            </Button>
+                            </div> :
                             (
                                 location.pathname !== '/login' ?
                                     <Link to='/login'>

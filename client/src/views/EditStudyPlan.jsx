@@ -48,11 +48,11 @@ const EditStudyPlan = (props) => {
     const removeCourse = (course) => {
         const propaedeuticityCourse = props.course.find(c => c.propaedeuticity && c.propaedeuticity.code === course.code);
         if (propaedeuticityCourse && coursesPlan.includes(propaedeuticityCourse.code)) {
-            setCoursesPlan((old) => old.filter((c => c !== propaedeuticityCourse.code)))
-            setCurrentCredits((old) => old - propaedeuticityCourse.CFU);
+            notify.error(`Vincolo di propedeuticità non soddisfatto. Rimuovi prima il corso ${propaedeuticityCourse.name}.`)
+        } else {
+            setCoursesPlan((old) => old.filter((c => c !== course.code)))
+            setCurrentCredits((old) => old - course.CFU);
         }
-        setCoursesPlan((old) => old.filter((c => c !== course.code)))
-        setCurrentCredits((old) => old - course.CFU);
     }
 
     const handleReset = () => {
@@ -69,14 +69,14 @@ const EditStudyPlan = (props) => {
             const old_course = session.plan.courses.filter(c => !coursesPlan.includes(c));
             const new_course = coursesPlan.filter(c => !session.plan.courses.includes(c));
 
-            api.updateStudyPlan(session.plan.id, currentCredits, old_course, new_course)
+            api.updateStudyPlan(session.plan.id, currentCredits, old_course, new_course, session.plan.plan_type.id)
                 .then(() => {
                     notify.success('Piano di studio aggiornato con successo');
                     setDirty(true);
                     navigate('/study-plan', { replace: true });
                 })
                 .catch((error) => {
-                    notify.error(error.message);
+                    notify.error(error);
                 })
         } else {
             api.addStudyPlan(coursesPlan, session.plan.plan_type.id, currentCredits)
@@ -85,8 +85,9 @@ const EditStudyPlan = (props) => {
                     setDirty(true);
                     navigate('/study-plan', { replace: true })
                 })
-                //.catch((error) => notify.error(error.data.message))
-                .catch((error) => console.log(error));
+                .catch((error) => {
+                    notify.error(error);
+                })
         }
     }
     if (session.plan)

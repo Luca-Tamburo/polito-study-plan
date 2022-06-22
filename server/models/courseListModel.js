@@ -39,27 +39,31 @@ module.exports = {
 
     // This function first removes one or more courses from the course list and then inserts additional courses.
     updateCourse: (id_course_list, old_course, new_course) => {
-        return new Promise((resolve, reject) => {
-            const query_delete = 'DELETE FROM course_list WHERE id=? AND course_code=?';
-            const query_insert = 'INSERT INTO course_list (id, course_code) VALUES (?, ?)';
-
-            const statement_delete = db.prepare(query_delete);
-            const statement_insert = db.prepare(query_insert);
-
-            old_course.forEach(course => {
-                statement_delete.run([id_course_list, course], function (err) {
+        const insertCourse = (id_course_list, course) => {
+            return new Promise((resolve, reject) => {
+                const query = 'INSERT INTO course_list(id, course_code) VALUES (?,?)';
+                db.run(query, [id_course_list, course], (err) => {
                     if (err) reject({ message: err.message, status: 500 });
+                    else resolve();
                 })
-            });
+            })
+        }
 
-            new_course.forEach(course => {
-                statement_insert.run([id_course_list, course], function (err) {
+        const removeCourse = (id_course_list, course) => {
+            return new Promise((resolve, reject) => {
+                const query = 'DELETE FROM course_list WHERE id = ? and course_code = ?'
+                db.run(query, [id_course_list, course], (err) => {
                     if (err) reject({ message: err.message, status: 500 });
+                    else resolve();
                 })
-            });
+            })
+        }
 
-            resolve();
-        })
+        return Promise.all(new_course.map(course => {
+            return insertCourse(id_course_list, course);
+        }).concat(old_course.map(course => {
+            return removeCourse(id_course_list, course);
+        })))
     },
 
     // This function deletes all courses associated with an id in the course list

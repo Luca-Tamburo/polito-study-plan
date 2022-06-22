@@ -7,7 +7,7 @@ module.exports = {
     // This function returns all information about a study plan given a user id.
     getStudyPlan: (id) => {
         return new Promise((resolve, reject) => {
-            const query = `SELECT SP.id, SP.course_list_id, SP.type, SP.tot_credits, SPO.name, SPO.min_credits, SPO.max_credits, CL.course_code
+            const query = `SELECT SP.id, SP.course_list_id, SP.type, SP.tot_credits, SPO.id as type_id, SPO.name, SPO.min_credits, SPO.max_credits, CL.course_code
                            FROM study_plan as SP, study_plan_option as SPO, course_list as CL
                            WHERE SP.course_list_id = CL.id AND SP.type = SPO.id AND user_id = ?`;
             db.all(query, [id], (err, rows) => {
@@ -18,6 +18,7 @@ module.exports = {
                         id: rows[0].id,
                         id_course_list: rows[0].course_list_id,
                         plan_type: {
+                            id: rows[0].type_id,
                             name: rows[0].name,
                             min_credits: rows[0].min_credits,
                             max_credits: rows[0].max_credits
