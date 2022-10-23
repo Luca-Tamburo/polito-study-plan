@@ -1,20 +1,35 @@
-//Imports
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         client
+ * Module:          views
+ * File:            EditStudyPlan.jsx
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
+// Imports
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { Col, Button, Modal } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFloppyDisk, faClockRotateLeft, faGraduationCap } from '@fortawesome/free-solid-svg-icons';
 
-//Components
+// Components
 import Course from '../components/Course';
 
-//Contexts
+// Contexts
 import { AuthContext } from '../contexts/AuthContext';
 
-//Hooks
+// Hooks
 import useNotification from '../hooks/useNotification';
 
-//Services
+// Services
 import api from '../services/api';
 
 const EditStudyPlan = (props) => {
@@ -22,15 +37,15 @@ const EditStudyPlan = (props) => {
     const [coursesPlan, setCoursesPlan] = useState(session.plan ? session.plan.courses : null);
     const [currentCredits, setCurrentCredits] = useState(session.plan ? session.plan.tot_credits : null);
     const [showModal, setShowModal] = useState(false);
-    const notify = useNotification();
-    const navigate = useNavigate();
+    const notify = useNotification(); // Notification handler
+    const navigate = useNavigate(); // Navigation handler
 
     if (!session.plan) {
         navigate('/study-plan', { replace: true });
     }
 
     const addCourse = (course) => {
-        //Check propaedeuticity.
+        //Check propaedeuticity
         if (course.propaedeuticity.code && !coursesPlan.includes(course.propaedeuticity.code)) {
             notify.error(`Conflitto di propedeuticità con ${course.propaedeuticity.code} - ${course.propaedeuticity.name}.`);
         } else if (course.incompatibilities && course.incompatibilities.find(inc => coursesPlan.includes(inc.code))) { //Check incompatibilities.

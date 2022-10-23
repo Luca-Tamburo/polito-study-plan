@@ -1,7 +1,23 @@
-//Imports
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         client
+ * Module:          hooks
+ * File:            useNotification.js
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
+// Imports
 import { toast } from "react-toastify";
 
 const useNotification = () => {
+    // Notification configuration parameters
     const notification = {
         autoClose: 3000,
         hideProgressBar: false,
@@ -13,7 +29,9 @@ const useNotification = () => {
         progress: undefined,
     }
 
+    // Object that allows you to handle notify
     const notify = {
+        // Error notification
         error: (error) => {
             toast.error(error, {
                 type: toast.TYPE.ERROR,
@@ -23,6 +41,7 @@ const useNotification = () => {
             });
         },
 
+        // Success notification
         success: (response) => {
             toast.success(response, {
                 type: toast.TYPE.SUCCESS,
@@ -32,7 +51,6 @@ const useNotification = () => {
             });
         }
     }
-
     return notify;
 }
 

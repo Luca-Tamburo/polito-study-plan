@@ -1,28 +1,44 @@
-//Imports
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         client
+ * Module:          components
+ * File:            LoginForm.jsx
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
+// Imports
 import { useState, useContext } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-//Services
+// Services
 import api from '../services/api';
 
-//Components
+// Components
 import Input from "./Input"
 
-//Contexts
+// Contexts
 import { AuthContext } from "../contexts/AuthContext";
 
-//Hooks
+// Hooks
 import useNotification from '../hooks/useNotification';
 
 const LoginForm = () => {
     const [loading, setLoading] = useState(false);
     const [, , setDirty] = useContext(AuthContext);
-    const notify = useNotification();
-    const navigate = useNavigate();
+    const notify = useNotification(); // Notification handler
+    const navigate = useNavigate(); // Navigation handler
 
+    // Perform authentication and login
     const handleSubmit = (credentials) => {
         setLoading(true);
         api.login(credentials)

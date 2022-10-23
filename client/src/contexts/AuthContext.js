@@ -1,20 +1,36 @@
-//Imports
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         client
+ * Module:          contexts
+ * File:            AuthContext.js
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
+// Imports
 import { createContext, useEffect, useState } from 'react'
 import { Spinner } from 'react-bootstrap';
 
-//Services
+// Services
 import api from '../services/api';
 
-//Hooks
+// Hooks
 import useNotification from '../hooks/useNotification';
 
 const AuthContext = createContext([{}, () => { }]);
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState({ user: null, plan: null, loggedIn: false });
-    const [dirty, setDirty] = useState(true); //Stato per ricaricare le informazioni dell'utente
+    const [user, setUser] = useState({ user: null, plan: null, loggedIn: false }); // Stores user, data plan and whether the user is logged in
+    const [dirty, setDirty] = useState(true); // State to reload user information
     const notify = useNotification();
 
+    // Load user data and data plan into client session
     useEffect(() => {
         if (dirty)
             api.getUserInfo()

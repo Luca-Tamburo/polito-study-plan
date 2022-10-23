@@ -1,5 +1,21 @@
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         server
+ * Module:          models
+ * File:            usersModel.js
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
 'use strict';
 
+// Import the connection to the DB from the middleware
 const db = require('../db/dbmiddleware');
 
 module.exports = {

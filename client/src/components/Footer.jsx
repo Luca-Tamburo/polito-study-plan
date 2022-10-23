@@ -1,4 +1,19 @@
-//Imports
+/*
+ --------------------------------------------------------------------
+ * 
+ * Package:         client
+ * Module:          components
+ * File:            Footer.jsx
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
+// Imports
 import { Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';

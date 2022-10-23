@@ -1,29 +1,45 @@
-//Imports
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         client
+ * Module:          components
+ * File:            Navbar.jsx
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
+// Imports
 import { Container, Row, Navbar as MyNavbar, Button } from 'react-bootstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useContext, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightToBracket, faHome, faBars, faDoorOpen } from '@fortawesome/free-solid-svg-icons';
 
-//Components
+// Components
 import Sidebar from './Sidebar';
 
-//Contexts
+// Contexts
 import { AuthContext } from '../contexts/AuthContext';
 
-//Services
+// Services
 import api from '../services/api';
 
-//Hooks
+// Hooks
 import useNotification from '../hooks/useNotification';
 
 const Navbar = ({ setCourse }) => {
     const [session, , setDirty] = useContext(AuthContext);
     const [show, setShow] = useState(false);
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // Navigation handler
     const location = useLocation();
-    const notify = useNotification();
+    const notify = useNotification(); // Notification handler
 
+    // Perform logout
     const handleLogout = () => {
         api.logout()
             .then(() => {
@@ -38,9 +54,7 @@ const Navbar = ({ setCourse }) => {
     return (
         <Row>
             {session.loggedIn && <Sidebar show={show} onHide={() => setShow(false)} />}
-
             <MyNavbar expand="lg" bg="light" variant="light">
-
                 {session.loggedIn &&
                     <Button className='ms-3' variant='light' onClick={() => setShow(true)}>
                         <div className='d-flex'>
@@ -75,7 +89,6 @@ const Navbar = ({ setCourse }) => {
                                     </Link>
                             )
                         }
-
                     </div>
                 </Container>
             </MyNavbar>

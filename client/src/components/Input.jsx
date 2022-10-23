@@ -1,8 +1,23 @@
-//Imports
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         client
+ * Module:          components
+ * File:            Input.jsx
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
+// Imports
 import { Form } from "react-bootstrap";
 import { Field, ErrorMessage, useField } from "formik";
 
-//ClassNames
+// ClassNames
 import classNames from "classnames";
 
 const Input = ({ id, name, type, placeholder, className, label }) => {

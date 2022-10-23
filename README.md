@@ -1,5 +1,13 @@
-# Exam #1: "Piano degli studi"
-## Student: s303907 TAMBURO LUCA 
+Project developed for the course "Applicazioni Web I," during the academic year 2021/22 at Politecnico di Torino.
+
+## Table of Contents
+
+- [React Client Application Routes](#react-client-application-routes)
+- [API Server](#api-server)
+- [Database Tables](#database-tables)
+- [Source Directory Structure](#source-directory-structure)
+- [Main React Components](#main-react-components)
+- [Users Credentials](#users-credentials)
 
 ## React Client Application Routes
 
@@ -411,9 +419,6 @@ Here you can find a visual schema of source directory structure by means the tre
      |--- /README.md
      |
      |
-|----/img
-|    |--- /screenshot.PNG
-|    |
 |--- /server
      |--- /db
      |    |--- /dbmiddleware.js
@@ -454,10 +459,6 @@ Here you can find a visual schema of source directory structure by means the tre
 - `EditStudyPlan` (in `EditStudyPlan.jsx`): Component that allows me to add and/or remove courses from a curriculum and save it if it meets the constraints.
 - `LoginForm` (in `LoginForm.js`): Component that manages a user's login.
 - `StudyPlan` (in `LoginForm.js`): Component that allows a study plan to be created if one does not exist associated with a user, otherwise if one exists it allows it to be deleted or modified.
-
-## Screenshot
-
-![screenshot](./img/screenshot.PNG)
 
 ## Users Credentials
 

@@ -1,12 +1,31 @@
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         server
+ * Module:          routes
+ * File:            sessions.js
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
 'use strict';
 
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
+
+// Import the module for authentication
 const passport = require('passport');
 
+// Import the module for validations
+const { check, validationResult } = require('express-validator');
+
 //POST /sessions
-//login
+// Route to perform user login with passport local strategy
 router.post('/', [
     check('email').isEmail().not().optional(),
     check('password').isStrongPassword({
@@ -34,7 +53,7 @@ router.post('/', [
 
 
 //DELETE /sessions/current
-//logout
+// Route to perform the logout of the user
 router.delete('/current', (req, res, next) => {
     req.logout((err) => {
         if (err)
@@ -45,7 +64,7 @@ router.delete('/current', (req, res, next) => {
 
 
 //GET /current
-//check if an user is logged in or not
+// Route to get the current session of a user, if he is logged in
 router.get('/current', (req, res) => {
     if (req.isAuthenticated())
         return res.status(200).json(req.user);

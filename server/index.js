@@ -1,33 +1,47 @@
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         server
+ * File:            index.js
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
 'use strict';
 
-//Importing modules
+// Importing modules
 const express = require("express");
-const logger = require("morgan");       //loggin middleware
+const logger = require("morgan");       // loggin middleware
 const cors = require("cors");
 
-//Authentication-related imports 
+// Authentication-related imports 
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require('express-session');
 
-//Routes and models
+// Routes and models
 const sessionsRouter = require("./routes/sessions");
 const courseRouter = require("./routes/courseRouter");
 const studyPlanRouter = require("./routes/studyPlanRouter");
 const usersModel = require("./models/usersModel");
 
-//Allow to use public route
+// Allow to use public route
 const path = require("path");
 
-//Module that performs data encryption and decryption
+// Module that performs data encryption and decryption
 const crypto = require("crypto");
 
-//Init express and set-up the middlewares
+// Init express and set-up the middlewares
 const app = express();
 app.use(logger("dev"));
 app.use(express.json());
 
-//Set up and enable Cross-Origin Resource Sharing (CORS)
+// Set up and enable Cross-Origin Resource Sharing (CORS)
 const corsOptions = {
     origin: 'http://localhost:3000',
     credentials: true,
@@ -41,7 +55,7 @@ app.use(session({
     saveUninitialized: false
 }))
 
-//Passport
+// Passport
 // Set up local strategy to verify, search in the DB a user with a matching password, and retrieve its information by userModel.getUserByEmail (i.e., id, username, name).
 passport.use(
     new LocalStrategy(function (username, password, done) {
@@ -91,7 +105,7 @@ app.use("/api/courses", courseRouter);
 app.use("/api/study-plans", studyPlanRouter);
 app.use("/api/sessions", sessionsRouter);
 
-//Activating server
+// Activating server
 const PORT = 3001;
 app.listen(PORT, () =>
     console.log(`Server running on http://localhost:${PORT}/`)

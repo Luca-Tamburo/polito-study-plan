@@ -1,4 +1,19 @@
-//Imports
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         client
+ * Module:          components
+ * File:            Course.jsx
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
+// Imports
 import { Accordion, Alert, Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +28,6 @@ const Course = (props) => {
             </div>
         )
     } else
-
         return (
             <Accordion alwaysOpen >
                 {props.course.map((course, index) => {

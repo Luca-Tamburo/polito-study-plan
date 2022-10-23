@@ -1,14 +1,39 @@
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         server
+ * Module:          routes
+ * File:            studyPlanRouter.js
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
 'use strict';
+
 const express = require("express");
-const { check, validationResult } = require('express-validator');
 const router = express.Router();
+
+// Import the module for validations
+const { check, validationResult } = require('express-validator');
+
+// Import models/DAOs (Data Access Objects)
 const studyPlanModel = require('../models/studyPlanModel');
 const courseListModel = require('../models/courseListModel');
 const courseModel = require('../models/courseModel');
+
+// Import session middleware to check if the user is authenticated
 const withAuth = require('../middlewares/withAuth');
+
+// Import constraints middleware to check for study plan constraints errors
 const withConstraints = require('../middlewares/withConstraints');
 
 // GET /study-plans
+// Route to get info about study plan associated with the logged in user
 router.get("/", withAuth, (req, res) => {
     studyPlanModel.getStudyPlan(req.user.id)
         .then((data) => {
@@ -19,6 +44,7 @@ router.get("/", withAuth, (req, res) => {
 });
 
 //GET /study-plans/types
+// Route to get info about study plan types associated with the logged in user
 router.get("/types", withAuth, (req, res) => {
     studyPlanModel.getStudyPlanType()
         .then((data) => {
@@ -29,6 +55,7 @@ router.get("/types", withAuth, (req, res) => {
 });
 
 // POST /study-plans
+// Route to create a study plan
 router.post("/", [
     check('courses').isArray().exists({ checkNull: true }),
     check('type_id').isInt({ min: 1, max: 2 }).exists({ checkFalsy: true }),
@@ -57,6 +84,7 @@ router.post("/", [
 
 
 //PUT /study-plans/:id
+// Route to update the study plan associated with the logged in user, given the study plan id
 router.put('/:id', [
     check('id').isInt().exists({ checkFalsy: true }),
     check('old_course').isArray().exists({ checkNull: true }),
@@ -94,6 +122,7 @@ router.put('/:id', [
 })
 
 //DELETE /study-plans/:id
+// Route to delete a study plan and its associated courses list, given the study plan id
 router.delete("/:id", [
     check('id').isInt().exists({ checkFalsy: true }),
 ], withAuth, (req, res) => {

@@ -1,17 +1,32 @@
-//Imports
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         client
+ * Module:          views
+ * File:            Login.jsx
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
+// Imports
 import { useContext, useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-//Components
+// Components
 import LoginForm from "../components/LoginForm";
 
-//Contexts
+// Contexts
 import { AuthContext } from "../contexts/AuthContext";
 
 const Login = () => {
     const [session] = useContext(AuthContext);
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // Navigation handler
 
     useEffect(() => {
         if (session.loggedIn)

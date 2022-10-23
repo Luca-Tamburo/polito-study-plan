@@ -1,27 +1,41 @@
-//Imports
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         client
+ * File:            App.jsx
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
+// Imports
 import './App.css';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 
-//Components
+// Components
 import AppContainer from './components/AppContainter';
 import ProtectedRoute from './components/ProtectedRoute';
 
-//Views
+// Views
 import * as View from './views';
 
-//Services
+// Services
 import api from './services/api';
 
-//Hooks
+// Hooks
 import useNotification from './hooks/useNotification';
 
 const App = () => {
   const [course, setCourse] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
-  const notify = useNotification();
+  const notify = useNotification(); // Notification handler
 
   useEffect(() => {
     api.getCourses()

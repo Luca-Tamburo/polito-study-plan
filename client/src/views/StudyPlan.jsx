@@ -1,27 +1,42 @@
-//Imports
+/*
+ * --------------------------------------------------------------------
+ * 
+ * Package:         client
+ * Module:          views
+ * File:            StudyPlan.jsx
+ * 
+ * Author:          Luca Tamburo
+ * Last modified:   2022-10-23
+ * 
+ * Copyright (c) 2022 - Luca Tamburo
+ * All rights reserved.
+ * --------------------------------------------------------------------
+ */
+
+// Imports
 import { useContext, useEffect, useState } from "react";
 import { Row, Col, Button, Image, Card, Modal } from "react-bootstrap"
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan, faFilePen } from '@fortawesome/free-solid-svg-icons';
 
-//Compontents
+// Compontents
 import Course from "../components/Course";
 
-//Contexts
+// Contexts
 import { AuthContext } from "../contexts/AuthContext";
 
-//Hooks
+// Hooks
 import useNotification from '../hooks/useNotification';
 
-//Services
+// Services
 import api from "../services/api";
 
 const StudyPlan = (props) => {
     const [session, setSession, setDirty] = useContext(AuthContext);
     const [types, setType] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const notify = useNotification();
+    const notify = useNotification(); // Notification handler
 
     useEffect(() => {
         api.getStudyPlanType()
