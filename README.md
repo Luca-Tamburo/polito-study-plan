@@ -41,7 +41,7 @@ Performs user authentication and create a new session for the user.
 
 A JSON object containing username and password.
 
-```
+```json
 {
     "username": "user1@polito.it",
     "password": "password"
@@ -52,7 +52,7 @@ A JSON object containing username and password.
 
 `HTTP status code 200 OK`
 
-```
+```json
 {
     "id": 1,
     "email": "user1@polito.it",
@@ -94,7 +94,7 @@ Gets information about the user, if he is logged in.
 
 `HTTP status code 200 OK`
 
-```
+```json
 {
     "id": 1,
     "email": "user1@polito.it",
@@ -121,7 +121,7 @@ Gets all course information.
 
 `HTTP status code 200 OK`
 
-```
+```json
 [
     {
         "code": "01UDFOV",
@@ -172,7 +172,7 @@ Gets all the information about the study plan associated with the connected user
 
 `HTTP status code 200 OK`
 
-```
+```json
 {
     "id": 13,
     "id_course_list": 1,
@@ -208,7 +208,7 @@ Gets all the information about the two study plans, if user is logged in.
 
 `HTTP status code 200 OK`
 
-```
+```json
 [
     {
         "id": 1,
@@ -244,7 +244,7 @@ Creates a new study plan associated with the logged in user.
 
 A JSON object containing the list of courses, type of study plan, and total credits.
 
-```
+```json
 {
     "courses":["02GOLOV", "01UDFOV"],
     "type_id": "1",
@@ -277,7 +277,7 @@ Edits a study plan associated with the logged-in user, given the study plan id.
 
 A JSON object containing an array with courses removed, an array with courses added, and the new credit total.
 
-```
+```json
 {
     "old_course": ["02GOLOV", "01UDFOV"], 
     "new_course":["01SQJOV", "02GRSOV", "03UEWOV", "01TYMOV"],
